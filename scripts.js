@@ -71,7 +71,7 @@ class App extends Component {
             .then(response => {
                 let [ companies, offerings, products ] = response;
 
-                let totalOffers = 0;  //  if we want the average price of all offers
+                let totalOffers = 0;  // if we want the average price of all offers
                 let totalPrice = 0; // if we want the average price of all offers
                 products.forEach(product => {
                     const offers = offerings.filter(offering => offering.productId === product.id);
@@ -99,8 +99,8 @@ class App extends Component {
                     product.lowComp = company.name;
                 })
 
-                let totalAverage = totalPrice / totalOffers;
-                totalAverage = totalAverage.toFixed(2);
+                let totalAverage = totalPrice / totalOffers; // if we want the average price of all offers
+                totalAverage = totalAverage.toFixed(2); // if we want the average price of all offers
 
                 let avgPrice = products.reduce((sum, product) => {
                     let currPrice = product.suggestedPrice;
