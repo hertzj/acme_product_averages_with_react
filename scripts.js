@@ -4,8 +4,7 @@ const { HashRouter, Route, Link, Switch, Redirect } = ReactRouterDOM;
 
 const root = document.querySelector('#root');
 
-const Nav = ({ path, companies, products, offerings }) => {
-    // console.log('path is: ', path);
+const Nav = ({ path }) => {
     return (
         <nav>
             <Link to='/' className={ path === '/' ? 'selected' : '' }>Home</Link>
@@ -14,8 +13,7 @@ const Nav = ({ path, companies, products, offerings }) => {
     )
 }
 
-const Home = ({ props, companies, products, offerings, avgPrice }) => {
-    // console.log(props);
+const Home = ({ props, products, avgPrice }) => {
     return (
         <div>
             <h2>Home</h2>
@@ -27,7 +25,7 @@ const Home = ({ props, companies, products, offerings, avgPrice }) => {
 const Products = ({ props, products }) => {
     return (
         <div>
-            <h2>Produts</h2>
+            <h2>Products</h2>
             { products.map((product, idx) => {
             return <div className='product'>
                         <ul key={idx} >
@@ -124,9 +122,9 @@ class App extends Component {
 
         return (
             <HashRouter>
-                <Route render={ ({ location }) => <Nav path = { location.pathname } companies={ companies } offerings={ offerings } products={ products } /> }/>
-                <Route path='/products' render={ props => <Products { ...props } companies={ companies } offerings={ offerings } products={ products } /> } />
-                <Route path='/' render={ props => <Home { ...props }  products={ products } avgPrice={ avgPrice } /> }  />
+                <Route render={ ({ location }) => <Nav path = { location.pathname } products={ products } /> }/>
+                <Route path='/products' render={ props => <Products { ...props } products={ products } /> } />
+                <Route exact path='/' render={ props => <Home { ...props }  products={ products } avgPrice={ avgPrice } /> }  />
             </HashRouter>
         )
     }
