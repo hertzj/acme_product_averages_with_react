@@ -27,7 +27,7 @@ const Products = ({ props, products }) => {
         <div>
             <h2>Products</h2>
             { products.map((product, idx) => {
-            return <div className='product'>
+            return <div key={idx} className='product'>
                         <ul key={idx} >
                            <li key={idx + 1}><b>Product:</b> { product.name }</li>
                            <li key={idx + 2}><b>Suggested Price:</b> { product.suggestedPrice.toFixed(2) } </li>
