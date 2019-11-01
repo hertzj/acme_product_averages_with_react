@@ -13,11 +13,11 @@ const Nav = ({ path }) => {
     )
 }
 
-const Home = ({ props, products, avgPrice }) => {
+const Home = ({ props, products, totalAverage }) => {
     return (
         <div>
             <h2>Home</h2>
-            <p>We have {products.length} products with an average price of { avgPrice } </p>
+            <p>We have {products.length} products with an average price of { totalAverage } </p>
         </div>
     )
 }
@@ -71,8 +71,8 @@ class App extends Component {
             .then(response => {
                 let [ companies, offerings, products ] = response;
 
-                let totalOffers = 0;  // if we want the average price of all offers
-                let totalPrice = 0; // if we want the average price of all offers
+                let totalOffers = 0;
+                let totalPrice = 0; 
                 products.forEach(product => {
                     const offers = offerings.filter(offering => offering.productId === product.id);
                     const sum = offers.reduce((sum, offer) => {
@@ -99,9 +99,10 @@ class App extends Component {
                     product.lowComp = company.name;
                 })
 
-                let totalAverage = totalPrice / totalOffers; // if we want the average price of all offers
-                totalAverage = totalAverage.toFixed(2); // if we want the average price of all offers
+                let totalAverage = totalPrice / totalOffers;
+                totalAverage = totalAverage.toFixed(2); 
 
+                // this will get the average suggested
                 let avgPrice = products.reduce((sum, product) => {
                     let currPrice = product.suggestedPrice;
                     sum += currPrice;
@@ -124,7 +125,7 @@ class App extends Component {
             <HashRouter>
                 <Route render={ ({ location }) => <Nav path = { location.pathname } products={ products } /> }/>
                 <Route path='/products' render={ props => <Products { ...props } products={ products } /> } />
-                <Route exact path='/' render={ props => <Home { ...props }  products={ products } avgPrice={ avgPrice } /> }  />
+                <Route exact path='/' render={ props => <Home { ...props }  products={ products } totalAverage={ totalAverage } /> }  />
             </HashRouter>
         )
     }
